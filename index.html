@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporary User Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Temporary User Generator</h1>
+    <div class="container">
+        <input id="num-users" type="number" placeholder="Enter the number of users to generate">
+        <button onclick="generateUsers()">Generate Users</button>
+        <div id="users"></div>
+    </div>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+
+    <script>
+        function generateTemporaryUser() {
+            const name = faker.name.findName();
+            const email = faker.internet.email();
+            const username = faker.internet.userName();
+            const password = faker.internet.password();
+            const phone = faker.phone.phoneNumber();
+            const address = faker.address.streetAddress();
+            const job = faker.name.jobTitle();
+            const company = faker.company.companyName();
+            const age = Math.floor(Math.random() * 100);
+            const birth_date = new Date(new Date().setFullYear(new Date().getFullYear() - age)).toLocaleDateString();
+
+            return {
+                name,
+                email,
+                username,
+                password,
+                phone,
+                address,
+                job,
+                company,
+                birth_date,
+            };
+        }
+
+        function generateUsers() {
+            const numUsersInput = document.getElementById('num-users');
+            const numUsers = parseInt(numUsersInput.value);
+            const usersDiv = document.getElementById('users');
+            usersDiv.innerHTML = ''; // Clear previous results
+
+            if (isNaN(numUsers) || numUsers <= 0) {
+                alert('Please enter a valid number of users to generate.');
+                return;
+            }
+
+            const users = []; // Create an array to store users
+
+            for (let i = 0; i < numUsers; i++) {
+                const user = generateTemporaryUser();
+                users.push(user); // Add each user to the array
+
+                // Display users on the page
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user';
+                userDiv.innerHTML = `
+                    <p><strong>Name:</strong> <span>${user.name}</span></p>
+                    <p><strong>Email:</strong> <span>${user.email}</span></p>
+                    <p><strong>Username:</strong> <span>${user.username}</span></p>
+                    <p><strong>Password:</strong> <span>${user.password}</span></p>
+                    <p><strong>Phone:</strong> <span>${user.phone}</span></p>
+                    <p><strong>Address:</strong> <span>${user.address}</span></p>
+                    <p><strong>Job:</strong> <span>${user.job}</span></p>
+                    <p><strong>Company:</strong> <span>${user.company}</span></p>
+                    <p><strong>Birth Date:</strong> <span>${user.birth_date}</span></p>
+                `;
+                usersDiv.appendChild(userDiv);
+            }
+
+            // Send the generated users to the Flask backend
+            fetch('/generate_users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(users), // Send the users array as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert(data.message); // Show success message
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
