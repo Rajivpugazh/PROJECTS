@@ -1,0 +1,134 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root {
+    --bg-light: #e0f2f1; /* light blue background */
+    --bg-dark: #333; /* dark gray title */
+    --blue: #337ab7; /* blue background */
+    --dark-blue: #23527c; /* darker blue background on hover */
+    --gray: #666; /* dark gray text for values */
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-light);
+    line-height: 1.6;
+    color: var(--bg-dark);
+  }
+  
+  h1 {
+    color: var(--bg-dark);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+  
+  /* Container Styles */
+  .container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Input Styles */
+  input[type="number"] {
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: var(--bg-dark);
+  }
+  
+  /* Button Styles */
+  button {
+    width: 100%;
+    max-width: 160px;
+    height: 40px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-image: linear-gradient(to bottom, var(--blue), var(--dark-blue));
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--dark-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+  
+  /* User Styles */
+  #users {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .user {
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: calc(33.33% - 20px);
+  }
+  
+  .user strong {
+    color: var(--blue); /* blue text for labels */
+  }
+  
+  .user span {
+    color: var(--gray); /* dark gray text for values */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .container {
+      margin: 20px auto;
+      padding: 15px;
+    }
+  
+    .user {
+      max-width: calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      margin: 10px auto;
+      padding: 10px;
+    }
+  
+    .user {
+      max-width: 100%;
+    }
+  
+    button,
+    input[type="number"] {
+      max-width: 100%;
+    }
+  }
+  
